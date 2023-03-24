@@ -12,7 +12,7 @@ export const LoginPage = () => {
                         <TextField 
                             table="Email" 
                             type="email" 
-                            placeholder="correo@google.com"
+                            placeholder="email@email.com"
                             fullWidth
                         />
                     </Grid>
@@ -50,7 +50,7 @@ export const LoginPage = () => {
                         justifyContent='end'
                     >
                         <Link component={ RouterLink } color='inherit' to="/auth/register">
-                            Crear una cuenta
+                            Create an account
                         </Link>                            
                     </Grid>
                 </Grid>
