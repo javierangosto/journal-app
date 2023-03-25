@@ -1,3 +1,4 @@
 export * from './routes';
 export * from './pages';
-export * from './view';
+export * from './views';
+export * from './components';

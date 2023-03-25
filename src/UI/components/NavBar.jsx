@@ -4,10 +4,10 @@ import { AppBar, Grid, IconButton, Toolbar, Typography } from "@mui/material"
 export const NavBar = ({ drawerWidth }) => {
     return (
     
-        <AppBar
+        <AppBar            
             position='fixed'
-            sx={{
-                width: { sm:`calc(100% - ${ drawerWidth }px)` },
+            sx={{ 
+                width: { sm: `calc(100% - ${ drawerWidth }px)` },
                 ml: { sm: `${ drawerWidth }px` }
             }}
         >
