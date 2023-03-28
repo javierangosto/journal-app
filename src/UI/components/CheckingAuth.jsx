@@ -12,7 +12,7 @@ export const CheckingAuth = () => {
             justifyContent="center"
             sx={{ minHeight: '100vh', backgroundColor: 'primary.main', padding: 4 }}
         >
-            <Grid 
+            <Grid container
                 item
                 direction='row'
                 justifyContent="center"
