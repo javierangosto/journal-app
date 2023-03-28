@@ -1,22 +1,22 @@
 import { Link as RouterLink } from 'react-router-dom'
 import { Google } from "@mui/icons-material"
-import { Button, Grid, Link, TextField, Typography } from "@mui/material"
+import { Alert, Button, Grid, Link, TextField, Typography } from "@mui/material"
 import { useDispatch, useSelector } from 'react-redux'
 
 import { AuthLayout } from '../layout/AuthLayout'
 import { useForm } from '../../hooks'
-import { checkingAuthentication, startGoogleSignIn } from '../../store/auth'
+import { checkingAuthentication, startGoogleSignIn, startSignInWithEmailPassword } from '../../store/auth'
 import { useMemo } from 'react'
 
 export const LoginPage = () => {
 
-    const { status } = useSelector( state => state.auth )
+    const { status, errorMessage } = useSelector( state => state.auth )
 
     const dispatch = useDispatch();
 
     const { email, password, onInputChange} = useForm({
-        email: 'jang@react.com',
-        password: '1234',
+        email: '',
+        password: '',
     })
 
     const isAuthenticating = useMemo( () => status === 'checking', [status])
@@ -24,8 +24,7 @@ export const LoginPage = () => {
     const handleSubmit = ( event ) => {
 
         event.preventDefault();
-        dispatch (checkingAuthentication( email, password ));
-
+        dispatch (startSignInWithEmailPassword( { email, password }));
 
     }
 
@@ -62,6 +61,17 @@ export const LoginPage = () => {
                         />
                     </Grid>
                     <Grid container spacing={ 2 } sx={{ mb: 2, mt: 1 }} >
+                        <Grid
+                            item xs={12}
+                            display={ !!errorMessage ? '' : 'none' }
+                        >
+                            <Alert 
+                                severity='error'
+                                
+                            >
+                                { errorMessage }
+                            </Alert>
+                        </Grid>
                         <Grid item xs={12} sm={6}>
                             <Button
                                 variant='contained' 
