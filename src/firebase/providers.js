@@ -51,8 +51,7 @@ export const registerUserWithEmailPassword = async ({ email, password, displayNa
     } catch (error) {
         return {
             ok: false,
-            errorMessage: error.message,
-            errorCode: error.code,
+            errorMessage: error.message
         }
     }
 
