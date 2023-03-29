@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { AuthLayout } from '../layout/AuthLayout'
 import { useForm } from '../../hooks'
-import { checkingAuthentication, startGoogleSignIn, startSignInWithEmailPassword } from '../../store/auth'
+import { startGoogleSignIn, startSignInWithEmailPassword } from '../../store/auth'
 import { useMemo } from 'react'
 
 export const LoginPage = () => {
