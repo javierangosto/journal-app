@@ -14,6 +14,7 @@ export const startNewNote = () => {
             title: '',
             body: '',
             date: new Date().getTime(),
+            imageURL: [],
         }      
 
         dispatch( savingNewNote( newNote ) );
