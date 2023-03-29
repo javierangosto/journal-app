@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { ImageGallery } from "../components"
 import { useForm } from '../../hooks/'
 import { useEffect, useMemo, useRef } from "react"
-import { setActiveNote, startSaveNote } from "../../store"
+import { setActiveNote, startSaveNote, startUploadingFiles } from "../../store"
 import Swal from "sweetalert2"
 import 'sweetalert2/dist/sweetalert2.css';
 
@@ -46,7 +46,9 @@ export const NoteView = () => {
 
     const handleFileInputChange = ({ target }) => {
 
-        if( target.files !== 0 ) return;
+        if( target.files === 0 ) return;
+        
+        dispatch( startUploadingFiles( target.files ) );
     }
     
 
@@ -75,14 +77,14 @@ export const NoteView = () => {
                     multiple
                     onChange={handleFileInputChange}
                     style = {{display:'none'}}
-                    ref={fileInputRef}
+                    ref={ fileInputRef }
                 />
-                <IconButton>
-                    <UploadOutlined 
-                        color="primary"
-                        disabled={ isSaving }
-                        onClick={ () => fileInputRef.current.click() }
-                    />
+                <IconButton
+                    color="primary"
+                    disabled={ isSaving }
+                    onClick={ () => fileInputRef.current.click() }
+                >
+                    <UploadOutlined />
                 </IconButton>
 
                 <Button 
