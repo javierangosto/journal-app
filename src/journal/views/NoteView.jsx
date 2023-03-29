@@ -1,9 +1,48 @@
 import { SaveOutlined } from "@mui/icons-material"
 import { Button, Grid, TextField, Typography } from "@mui/material"
+import { useDispatch, useSelector } from "react-redux"
 import { ImageGallery } from "../components"
+import { useForm } from '../../hooks/'
+import { useEffect, useMemo } from "react"
+import { setActiveNote, startSaveNote } from "../../store"
+import Swal from "sweetalert2"
+import 'sweetalert2/dist/sweetalert2.css';
 
 
 export const NoteView = () => {
+
+    const { activeNote, messageSaved, isSaving } = useSelector( state => state.journal );
+    const { title, body, date, onInputChange, formState } = useForm( activeNote );
+    const dispatch = useDispatch();
+
+    const dateString = useMemo( () => {
+        
+        return new Date( date ).toUTCString();       
+
+    }, [ date ])
+
+    useEffect(() => {
+        
+        dispatch( setActiveNote( formState ) );
+
+    }, [formState])
+
+    useEffect(() => {
+
+        if ( messageSaved != '' ) {
+
+            Swal.fire( 'Updated note', messageSaved, 'success');
+        }
+
+    }, [ messageSaved ])
+
+    const handleSaveNote = () => {
+
+        dispatch( startSaveNote() );
+
+    }
+    
+
     return (
     
         <Grid         
@@ -19,13 +58,15 @@ export const NoteView = () => {
                     fontSize={39}
                     fontWeight='light'
                 >
-                    Mar 25 2023
+                    { dateString }
                 </Typography>
             </Grid>
             <Grid item>
                 <Button 
                     color='primary'
                     sx={{padding: 2}}
+                    onClick={handleSaveNote}
+                    disabled={ isSaving }
                 >
                     <SaveOutlined sx={{ fontSize: 30, mr: 1 }} />
                     Save
@@ -40,6 +81,9 @@ export const NoteView = () => {
                     label='Title'
                     placeholder='Enter a title...'
                     sx={{ border: 'none', mb: 1 }}
+                    name="title"
+                    value={ title }
+                    onChange={onInputChange}
                 />
             </Grid>
             <Grid container>
@@ -50,6 +94,9 @@ export const NoteView = () => {
                     multiline
                     placeholder='What has happened today?'
                     minRows={ 5 }
+                    name="body"
+                    value={ body }
+                    onChange={onInputChange}
                 />
             </Grid>
             
